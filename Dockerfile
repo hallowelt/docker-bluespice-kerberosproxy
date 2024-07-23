@@ -8,7 +8,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 	libapache2-mod-proxy-uwsgi \
 	libapache2-mod-auth-gssapi
 RUN a2enmod proxy proxy_http proxy_balancer lbmethod_byrequests headers
-COPY root-fs/etc/apache2/sites-enabled/kerberos-proxy.conf /etc/apache2/sites-available/000-default.conf
-COPY kerberos-template /kerberos-template
+COPY root-fs/etc/apache2/sites-available/kerberos-proxy.conf /etc/apache2/sites-available/000-default.conf
+COPY root-fs/app /app
 EXPOSE 80
 CMD ["apachectl", "-D", "FOREGROUND"]
