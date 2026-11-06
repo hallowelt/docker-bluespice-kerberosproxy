@@ -21,5 +21,10 @@ RUN	apt install -y krb5-config \
 RUN a2enmod proxy proxy_http proxy_balancer lbmethod_byrequests headers
 COPY root-fs/etc/apache2/sites-available/kerberos-proxy.conf /etc/apache2/sites-available/000-default.conf
 COPY root-fs/app /app
+
+# Build info: value of build arg BUILDINFO, `-` if not set
+ARG BUILDINFO
+RUN mkdir -p /image && echo "${BUILDINFO:--}" > /image/BUILDINFO
+
 EXPOSE 80
 CMD ["apachectl", "-D", "FOREGROUND"]
