@@ -21,5 +21,9 @@ RUN	apt install -y krb5-config \
 RUN a2enmod proxy proxy_http proxy_balancer lbmethod_byrequests headers
 COPY root-fs/etc/apache2/sites-available/kerberos-proxy.conf /etc/apache2/sites-available/000-default.conf
 COPY root-fs/app /app
+
+# Build timestamp (UTC, YmdHis)
+RUN mkdir -p /image && date -u +%Y%m%d%H%M%S > /image/BUILDINFO
+
 EXPOSE 80
 CMD ["apachectl", "-D", "FOREGROUND"]
